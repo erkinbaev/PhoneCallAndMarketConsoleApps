@@ -35,7 +35,6 @@ class Basket {
     
     var products = [Product] ()
 
-    
     func addProduct(name: String, price: Double) -> [Product] {
         let product = Product(name: name, price: price)
             products.append(product)
@@ -46,13 +45,11 @@ class Basket {
             products.remove(at: position)
         return products
     }
-    
 }
 
 class Customer {
     var name: String = ""
     var basket = Basket()
-    
 }
 
 class Market{
@@ -72,7 +69,6 @@ class Market{
     print("Итого: \(totalPrice) сом")
         print("")
         print("Спасибо за покупку!")
-
     }
 }
 
@@ -81,7 +77,6 @@ basket.addProduct(name: "Cola", price: 35.0)
 basket.addProduct(name: "KitKat", price: 40.0)
 basket.addProduct(name: "Pizza", price: 250.0)
 
-
 var customer = Customer()
 customer.name = "Aidana"
 
@@ -89,14 +84,31 @@ var market = Market()
 market.name = "Zhyldyz"
 market.adress = "Bishkek"
 market.printCheck(customer: customer)
+
 //1
 class Contact {
-    var name:String = ""
-    var number: Int = 0
+    private var name:String = ""
+    private var number: Int = 0
     
     init(name: String, number: Int) {
         self.name = name
         self.number = number
+    }
+    
+    func getName() -> String {
+        return name
+    }
+    
+    func editName(contactName: String)  {
+        name = contactName
+    }
+    
+    func editNumber(contactNumber: Int)  {
+    number = contactNumber
+    }
+    
+    func getNumber() -> Int {
+    return number
     }
 }
 
@@ -125,6 +137,22 @@ class Phone {
     }
 }
 
+class IPhone : Phone {
+    
+    override func receiveCall(number: Int) {
+        var inContacts = false
+        for (key, value) in contacts {
+            if number == value{
+                print("\(key) is calling")
+                inContacts = true
+            }
+        }
+        if (inContacts == false){
+            print("\(number)")
+        }
+    }
+    
+}
 var contact = Contact(name: "Nursultan", number: 0776608806)
 
 var contacts = [String: Int]()
@@ -132,7 +160,11 @@ contacts["Akylzat"] = 0775508805
 contacts["Aidar"] = 0555744477
 contacts["Orozber"] = 0509209290
 contacts["Nursultan"] = 0776608806
+contacts["Aidana"] = 0553200209
 
-var phone = Phone(number: contact.number, model: "A31", contacts: contacts)
+//var phone = Phone(number: contact.getNumber(), model: "A31", contacts: contacts)
+//
+//phone.receiveCall(number: 0553200209)
 
-phone.receiveCall(number: 0776608805)
+var iPhone = IPhone(number: contact.getNumber(), model: "Iphone Xr", contacts: contacts)
+iPhone.receiveCall(number: 0509209290)
